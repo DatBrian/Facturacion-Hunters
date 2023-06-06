@@ -8,9 +8,10 @@ export class myButtons extends HTMLElement {
     }
 
     handleEvent(e) {
-        if (e.target === this.addButton && e.type === "click") {
-            this.addProduct()
-        }
+
+        (e.target === this.addButton && e.type === "click") ? this.addProduct()
+            : undefined;
+
     }
 
     async components() {
@@ -22,7 +23,7 @@ export class myButtons extends HTMLElement {
         document.adoptedStyleSheets.push(styles);
         await this.render();
 
-        this.addButton.addEventListener("click", this);
+        this.addButton.addEventListener("click", this); 
 
     }
 
@@ -37,9 +38,8 @@ export class myButtons extends HTMLElement {
     addProduct() {
         let newComponent = document.createElement("my-details");
 
-        let count = this.container.childElementCount;
-
-        newComponent.dataset.id = count;
+        // let count = this.container.childElementCount;
+        // newComponent.dataset.id = count;
 
         this.container.insertAdjacentHTML("beforeend", newComponent.outerHTML);
     }

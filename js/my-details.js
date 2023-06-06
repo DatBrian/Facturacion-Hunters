@@ -46,7 +46,7 @@ export class myDetails extends HTMLElement {
     }
 
     lessAmount(input, container) {
-        (input.value == 1) ? container.remove() : input.value--;
+        (input.value == 1 || input.value == 0) ? container.remove() : input.value--;
     }
 
 }
