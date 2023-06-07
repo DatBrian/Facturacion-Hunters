@@ -5,11 +5,15 @@ export class myButtons extends HTMLElement {
         super();
         this.container = null;
         this.addButton = null;
+        this.submitButton = null;
     }
 
     handleEvent(e) {
 
         (e.target === this.addButton && e.type === "click") ? this.addProduct()
+            : undefined;
+
+        (e.target === this.submitButton && e.type === "click") ? this.submitEvent()
             : undefined;
 
     }
@@ -23,7 +27,8 @@ export class myButtons extends HTMLElement {
         document.adoptedStyleSheets.push(styles);
         await this.render();
 
-        this.addButton.addEventListener("click", this); 
+        this.addButton.addEventListener("click", this);
+        this.submitButton.addEventListener("click", this);
 
     }
 
@@ -33,6 +38,7 @@ export class myButtons extends HTMLElement {
 
         this.container = this.querySelector("#containerProducts");
         this.addButton = this.querySelector("#addButton");
+        this.submitButton = this.querySelector("#submit");
     }
 
     addProduct() {
@@ -42,6 +48,11 @@ export class myButtons extends HTMLElement {
         // newComponent.dataset.id = count;
 
         this.container.insertAdjacentHTML("beforeend", newComponent.outerHTML);
+    }
+
+    submitEvent() {
+        const event = new CustomEvent('requestData', { bubbles: true, composed: true });
+        this.dispatchEvent(event);
     }
 }
 customElements.define("my-buttons", myButtons);

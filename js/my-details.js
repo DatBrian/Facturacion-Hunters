@@ -10,7 +10,7 @@ export class myDetails extends HTMLElement {
     }
 
     handleEvent(e) {
-        let container = e.target.parentNode.parentNode;
+        let container = e.target.parentNode.parentNode.parentNode;
         let input = container.querySelector("#amount");
 
         e.target === this.plusButton && e.type === "click" ? this.plusAmount(input) :
