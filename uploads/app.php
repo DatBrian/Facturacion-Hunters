@@ -13,12 +13,14 @@ trait Singleton
 }
 
 spl_autoload_register('autoload');
-header("Content-Type: application/json; charset=UTF-8");
+header("Content-Type: application/json; charset=UTF-8");    
 $METHOD = $_SERVER["REQUEST_METHOD"];
 $_DATA = json_decode(file_get_contents("php://input"), true);
+$_HEADER = 
 
 $res = match ($METHOD) {
-    "POST" => customerInstance($_DATA['usersDetails']),
+    "POST" => sellerInstance($_DATA['usersDetails']),
+    "GET" => "hola",
     default => null
 };
 
@@ -50,8 +52,7 @@ function autoload($class)
 {
     // Directorios donde buscar archivos de clases
     $directories = [
-        dirname(__DIR__) . '/scripts/db/',
-        dirname(__DIR__) . '/scripts/user/',
+        dirname(__DIR__) . '/scripts/',
     ];
     // Convertir el nombre de la clase en un nombre de archivo relativo
     $classFile = str_replace('\\', '/', $class) . '.php';
