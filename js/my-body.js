@@ -1,7 +1,7 @@
 /**
  * todo: Brian del futuro arregle esto ▼
  */
-
+import { configuracion } from "./config/methods.js";
 import styles from "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" assert { type: "css" };
 export class myBody extends HTMLElement {
     constructor() {
@@ -9,7 +9,7 @@ export class myBody extends HTMLElement {
     }
 
     handleEvent(e) {
-        (e.type === "requestData") ? this.searchData() : undefined;
+        (e.type === "requestData") ? this.sendData() : undefined;
     }
 
     async components() {
@@ -28,24 +28,39 @@ export class myBody extends HTMLElement {
 
     }
 
+    async sendData() {
+
+        let myHeaders = new Headers({ "Content-Type": "application/json" });
+        let data = this.searchData();
+        let config = configuracion("POST", myHeaders, JSON.stringify(data));
+
+        try {
+            let res = await (await fetch("uploads/app.php", config)).text();
+            console.log(data);
+            console.log(res);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     searchData() {
 
         //Primera sección
 
         let infoInputs = this.querySelectorAll("input");
         let infoInputsValues = this.groupInputs(infoInputs);
-        console.log(infoInputsValues);
 
         //Segunda sección
 
         let products = this.searchDetails()
-        console.log(products);
 
-    }
+        let data = {
+            usersDetails: infoInputsValues,
+            productsDetails: products
+        }
 
-    groupInputs(inputs) {
-        let entries = Array.from(inputs).map(input => [input.name, input.value]);
-        return Object.fromEntries(entries);
+        return (data);
+
     }
 
     searchDetails() {
@@ -64,6 +79,11 @@ export class myBody extends HTMLElement {
         });
 
         return products;
+    }
+
+    groupInputs(inputs) {
+        let entries = Array.from(inputs).map(input => [input.name, input.value]);
+        return Object.fromEntries(entries);
     }
 
 }
