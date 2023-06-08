@@ -1,4 +1,9 @@
 <?php
+spl_autoload_register('autoload');
+header("Content-Type: application/json; charset=UTF-8");    
+$METHOD = $_SERVER["REQUEST_METHOD"];
+$_DATA = json_decode(file_get_contents("php://input"), true);
+$_HEADER = apache_request_headers();
 trait Singleton
 {
     public static $instance;
@@ -12,21 +17,25 @@ trait Singleton
     }
 }
 
-spl_autoload_register('autoload');
-header("Content-Type: application/json; charset=UTF-8");    
-$METHOD = $_SERVER["REQUEST_METHOD"];
-$_DATA = json_decode(file_get_contents("php://input"), true);
-$_HEADER = 
-
-$res = match ($METHOD) {
-    "POST" => sellerInstance($_DATA['usersDetails']),
-    "GET" => "hola",
-    default => null
-};
-
 echo json_encode($res);
 
 //Funciones
+
+
+class api{
+    use getInstance;
+    
+    function __construct(private $_METHOD, public $_HEADER, private $_DATA){
+
+    match ($METHOD) {
+        "POST" => $_DATA['usersDetails'],
+        "GET" => "hola",
+        default => null
+    };
+
+    }
+}
+
 
 function customerInstance($data)
 {
@@ -52,7 +61,7 @@ function autoload($class)
 {
     // Directorios donde buscar archivos de clases
     $directories = [
-        dirname(__DIR__) . '/scripts/',
+        dirname(__DIR__) . '/scripts',
     ];
     // Convertir el nombre de la clase en un nombre de archivo relativo
     $classFile = str_replace('\\', '/', $class) . '.php';

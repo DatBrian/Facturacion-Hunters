@@ -37,7 +37,7 @@ export class myBody extends HTMLElement {
         try {
             let res = await (await fetch("uploads/app.php", config)).text();
             console.log(data);
-            console.log(res);
+            this.querySelector("pre").innerHTML = res;
         } catch (error) {
             console.error(error);
         }
