@@ -17,10 +17,18 @@ trait Singleton
             ? self::$instance = new static(...$args)
             : self::$instance;
     }
+
+    public function __set($name, $value){
+        $this -> $name = $value;
+    }
+
+    public function __get($name){
+        return $this -> $name;
+    }
+
 }
 
 //Funciones
-
 
 class api{
     use Singleton;
