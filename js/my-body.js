@@ -35,9 +35,9 @@ export class myBody extends HTMLElement {
         let config = configuracion("POST", myHeaders, JSON.stringify(data));
 
         try {
-            let res = await (await fetch("uploads/app.php", config)).text();
-            console.log(data);
-            this.querySelector("pre").innerHTML = res;
+            let res = await (await fetch("uploads/app.php", config)).json();
+            console.log(res);
+            this.querySelector("pre").innerHTML = JSON.stringify(res);
         } catch (error) {
             console.error(error);
         }
