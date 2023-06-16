@@ -59,4 +59,16 @@ ADD
 ADD
     FOREIGN KEY(fk_id_seller) REFERENCES tb_seller (id_seller),
 ADD
-    FOREIGN KEY (fk_id_product) REFERENCES tb_product (id_product)
+    FOREIGN KEY (fk_id_product) REFERENCES tb_product (id_product);
+
+INSERT INTO tb_client(identification, full_name, email, address, phone) VALUES ('1097490746', 'Brian Kaleth Melo Arroyo', 'vikard.2005@hotmail.com', 'CAlle 58', '3118779881');
+
+SELECT full_name AS "all_names_ñ" FROM tb_client;
+
+USE db_hunter_facture;
+
+INSERT INTO tb_client(identificacion, full_name, email, address, phone) VALUES (1097490746,
+'Brian Kaleth Melo Arroyo',
+'vikard.2005@hotmail.com',
+'CAlle 58',
+'3118779881');
