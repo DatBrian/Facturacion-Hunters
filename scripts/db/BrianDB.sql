@@ -72,3 +72,5 @@ INSERT INTO tb_client(identificacion, full_name, email, address, phone) VALUES (
 'vikard.2005@hotmail.com',
 'CAlle 58',
 '3118779881');
+
+SELECT * FROM tb_client ;
