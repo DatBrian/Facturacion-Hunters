@@ -2,6 +2,7 @@
 class client extends connection{
     private $queryPost = 'INSERT INTO tb_client(identificacion,full_name,email,address,phone) VALUES(:cc,:name,:email,:direction,:cellphone)';
     private $queryGetAll = 'SELECT * FROM tb_client';
+    private $queryGet = 'SELECT * FROM tb_client WHERE client_id = ?';
     private $queryDelete = 'DELETE FROM tb_client WHERE id = ?';
     private $message;
     use getInstance;
@@ -33,6 +34,16 @@ class client extends connection{
             $this->message = ["Code"=> $e->getCode(), "Message"=> $res->errorInfo()[2]];
         }finally{
             print_r($this->message);
+        }
+    }
+
+    public function getClient($id){
+        try{
+            $res = $this -> conx -> prepare($this -> queryGet);
+            $res -> execute([$id]);
+            $this -> message = ["Code" => "200", "Message" => $res -> fetch(PDO::FETCH_ASSOC)];
+        }catch(\PDOException $e){
+            $this -> message = ["Code" => $e -> getCode(), "Message" => $res -> errorInfo()[2]];
         }
     }
 
