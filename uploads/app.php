@@ -34,7 +34,18 @@
     }
     spl_autoload_register('autoload');
 
+    ini_set('display_errors', 1);
+    error_reporting(E_ALL);
 
-    client::getInstance(json_decode(file_get_contents("php://input"), true))->postClient();
+    client::getInstance(json_decode(file_get_contents("php://input"), true))->getClient();
+
 
 ?>
+
+<!-- {
+  "identification" : 123,
+  "full_name" : "Brian 2",
+  "email" : "prueba@gmail.com",
+  "address" : "calle 1",
+  "phone" : "123"
+} -->

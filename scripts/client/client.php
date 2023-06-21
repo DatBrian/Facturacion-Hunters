@@ -1,21 +1,21 @@
 <?php
 class client extends connection{
-    private $queryPost = 'INSERT INTO tb_client(identificacion,full_name,email,address,phone) VALUES(:cc,:name,:email,:direction,:cellphone)';
+    private $queryPost = 'INSERT INTO tb_client(identification,full_name,email,address,phone) VALUES(:cc,:name,:email,:direction,:cellphone)';
     private $queryGetAll = 'SELECT * FROM tb_client';
-    private $queryGet = 'SELECT * FROM tb_client WHERE client_id = ?';
+    private $queryGet = 'SELECT * FROM tb_client WHERE identification = ?';
     private $queryDelete = 'DELETE FROM tb_client WHERE id = ?';
     private $message;
     use getInstance;
-    function __construct(private $Identification, public $Full_Name, public $Email, private $Address, private $Phone){parent::__construct();}
+    function __construct(private $identification, public $full_name, public $email, private $address, private $phone){parent::__construct();}
 
     public function postClient(){
         try {
             $res = $this->conx->prepare($this->queryPost);
-            $res->bindValue("email", $this->Email);
-            $res->bindValue("cc", $this->Identification);
-            $res->bindValue("name", $this->Full_Name);
-            $res->bindValue("direction", $this->Address);
-            $res->bindValue("cellphone", $this->Phone);
+            $res->bindValue("email", $this->email);
+            $res->bindValue("cc", $this->identification);
+            $res->bindValue("name", $this->full_name);
+            $res->bindValue("direction", $this->address);
+            $res->bindValue("cellphone", $this->phone);
             $res->execute();
             $this->message = ["Code"=> 200+$res->rowCount(), "Message"=> "inserted data"];
         } catch(\PDOException $e) {
@@ -59,4 +59,5 @@ class client extends connection{
         }
     }
 }
+
 ?>
