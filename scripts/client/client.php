@@ -6,7 +6,7 @@ class client extends connection{
     private $queryDelete = 'DELETE FROM tb_client WHERE id = ?';
     private $message;
     use getInstance;
-    function __construct(private $identification, public $full_name, public $email, private $address, private $phone){parent::__construct();}
+    function __construct(private $identification = 1, public $full_name = 1, public $email = 1, private $address = 1, private $phone = 1){parent::__construct();}
 
     public function postClient(){
         try {
